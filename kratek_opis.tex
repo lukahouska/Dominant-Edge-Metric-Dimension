@@ -17,7 +17,7 @@
 \newtheorem{definicija}{Definicija}
 \newtheorem{posledica}{Posledica}
 
-\title{Dominantna metrična dimenzija na povezavah \\ 
+\title{Dominantna metrična dimenzija povezav \\ 
 \Large Finančni praktikum}
 \author{Luka Houška, Blaž Povh \\
 Fakulteta za matematiko in fiziko}
@@ -30,11 +30,11 @@ Fakulteta za matematiko in fiziko}
 
 \section{Definicije}
     \begin{definicija}
-        V grafu $G$, množici vozlišč $S$ pravimo, da je edge resolving, če za vsak par povezav $e, f \in E(G)$ obstaja $s \in S$, tako da $d(s, e) \neq  d(s, f)$.
+        V grafu $G$, množici vozlišč $S$ pravimo, da razrešuje povezave, če za vsak par povezav $e, f \in E(G)$ obstaja $s \in S$, tako da $d(s, e) \neq  d(s, f)$.
     \end{definicija}
 
     \begin{definicija}
-        Metrična dimenzija na povezavah na  povezanem grafu $G$, označili jo bomo z $edim(G)$, je moč najmanjše množice vozlišč $S\subseteq V(G)$, ki razlikuje vse pare povezav, t.j. za vsak par povezav $e, f \in E(G)$, obstaja vozlišče $s \in S$, tako da $d(s, e) \neq d(s, f )$. Tu upoštevamo, da je za povezavo $e=uv$, $d(s, e) = min\{d(s, u), d(s, v)\}$.
+        Metrična dimenzija povezav na  povezanem grafu $G$, označili jo bomo z $edim(G)$, je moč najmanjše množice vozlišč $S\subseteq V(G)$, ki razlikuje vse pare povezav, t.j. za vsak par povezav $e, f \in E(G)$, obstaja vozlišče $s \in S$, tako da $d(s, e) \neq d(s, f )$. Tu upoštevamo, da je za povezavo $e=uv$, $d(s, e) = min\{d(s, u), d(s, v)\}$.
     \end{definicija}
         
     \begin{definicija}
@@ -42,7 +42,7 @@ Fakulteta za matematiko in fiziko}
     \end{definicija}
 
     \begin{definicija}
-        A dominant edge resolving set $S$ za graf $G$, je množica $S$, ki je hkrati vozliščno pokritje in edge resolving set. Dominantna metrična dimenzija $G$ je moč najmanjše množice $S$, ki je edge resolving. Označimo jo z $Dedim(G)$.
+        Dominantna množica, ki razrešuje povezave $S$ za graf $G$, je množica $S$, ki je hkrati vozliščno pokritje in razrešuje povezave. Dominantna metrična dimenzija grafa $G$ je moč najmanjše množice $S$, ki razrešuje povezave. Označimo jo z $Dedim(G)$.
     \end{definicija}
 
 \section{Navodilo naloge}
