@@ -1,1 +1,118 @@
-klkjsiosj
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[slovene]{babel}
+\usepackage{amsfonts,amssymb,amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{icomma}
+
+
+\def\qed{$\hfill\Box$}   % konec dokaza
+\def\qedm{\qquad\Box}   % konec dokaza v matematičnem načinu
+\newtheorem{izrek}{Izrek}
+\newtheorem{lema}{Lema}
+\newtheorem{definicija}{Definicija}
+\newtheorem{posledica}{Posledica}
+
+\title{Dominantna metrična dimenzija na povezavah \\ 
+\Large Finančni praktikum}
+\author{Luka Houška, Blaž Povh \\
+Fakulteta za matematiko in fiziko}
+\date{2023/2024}
+
+
+\begin{document}
+
+\maketitle
+
+\section{Definicije}
+    \begin{definicija}
+        V grafu $G$, množici vozlišč $S$ pravimo, da je edge resolving, če za vsak par povezav $e, f \in E(G)$ obstaja $s \in S$, tako da $d(s, e) \neq  d(s, f)$.
+    \end{definicija}
+
+    \begin{definicija}
+        Metrična dimenzija na povezavah na  povezanem grafu $G$, označili jo bomo z $edim(G)$, je moč najmanjše množice vozlišč $S\subseteq V(G)$, ki razlikuje vse pare povezav, t.j. za vsak par povezav $e, f \in E(G)$, obstaja vozlišče $s \in S$, tako da $d(s, e) \neq d(s, f )$. Tu upoštevamo, da je za povezavo $e=uv$, $d(s, e) = min\{d(s, u), d(s, v)\}$.
+    \end{definicija}
+        
+    \begin{definicija}
+        Množica vozlišč $C$ je \emph{vozliščno pokritje}, če ima vsaka povezava iz grafa $G$ vsaj eno krajišče v $C$.
+    \end{definicija}
+
+    \begin{definicija}
+        A dominant edge resolving set $S$ za graf $G$, je množica $S$, ki je hkrati vozliščno pokritje in edge resolving set. Dominantna metrična dimenzija $G$ je moč najmanjše množice $S$, ki je edge resolving. Označimo jo z $Dedim(G)$.
+    \end{definicija}
+
+\section{Navodilo naloge}
+    Implement an ILP for computing dominant edge metric dimension and answer the following questions.
+    \begin{enumerate}
+        \item Find trees on $n$ vertices which have minimum/maximum dominant edge metric dimension.
+        \item Find trees $T$ on $n$ vertices for which $Dedim(T) - edim(T)$ is maximum/minimum possible.
+        \item Find trees $T$ on $n$ vertices for which $Dedim(T)/ edim(T)$ is maximum/minimum possible.
+        \item Determine $Dedim(G)$ of a grid graph $Pk \Box Pt$.
+    \end{enumerate}
+
+    For small graphs, apply a systematic search; for larger ones, apply some stochastic search. Report your results.
+
+\section{Načrt dela}
+    Najina prva naloga bo narediti CLP, ki nama bo izračunal dominantno metrično dimenzijo na povezavah. Pomagala si bova z \cite{dominantedge}. Drugi del naloge se navezuje na iskanje dreves, ki ustrezajo kriterijem iz navodil. "Na roke" bova poiskala rešitve za majno število vozlišč, nato pa bova poskusila najti smiselno sistematično iskanje. Za velike grafe bova poskusila s stohastičnim iskanjem oz. metahevristiko.
+
+
+
+
+    \begin{thebibliography}{99}
+        \bibitem{dominantedge}
+        M. Tavakoli, M. Korivand, A. Erfanian, G. Abrishami, E. T. Baskoro,
+        \emph{The dominant edge metric dimension of graphs},
+        Electronic Journal of Graph Theory and Applications 11(1) (2023) 197–208.  
+    \end{thebibliography}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
