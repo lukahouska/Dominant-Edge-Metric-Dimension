@@ -1,0 +1,420 @@
+\documentclass[12pt,a4paper]{amsart}
+% ukazi za delo s slovenscino -- izberi kodiranje, ki ti ustreza
+\usepackage[slovene]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{url}
+\usepackage[normalem]{ulem}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{csquotes}
+\usepackage{caption}
+\usepackage{lipsum}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+\lstset{
+    breaklines=true,    
+    breakatwhitespace=false,
+    postbreak=\space,   
+    tabsize=2,    
+    basicstyle=\small\ttfamily\bfseries,
+    commentstyle=\color{green!50!black},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    numbers=left
+}
+\usetikzlibrary{graphs}
+\usetikzlibrary{graphs.standard}
+
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}%
+  \z@{.5\linespacing\@plus.7\linespacing}{.5\linespacing}%
+  {\normalfont\scshape\large\centering}}
+\renewcommand\subsection{\@startsection{subsection}{2}%
+  \z@{.5\linespacing\@plus.7\linespacing}{.5\linespacing}%
+  {\normalfont\scshape}}
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}%
+  \z@{.5\linespacing\@plus.7\linespacing}{-.5em}%
+  {\normalfont\itshape}}
+\makeatother
+
+% ne spreminjaj podatkov, ki vplivajo na obliko strani
+\textwidth 15cm
+\textheight 24cm
+\oddsidemargin.5cm
+\evensidemargin.5cm
+\topmargin-5mm
+\addtolength{\footskip}{10pt}
+\pagestyle{plain}
+\overfullrule=15pt % oznaci predlogo vrstico
+
+% ukazi za matematicna okolja
+\theoremstyle{plain} % tekst napisan pokoncno
+\newtheorem{definicija}{Definicija}[section]
+\newtheorem{primer}[definicija]{Primer}
+\newtheorem{definition}{Definicija}[section]
+
+\renewcommand\endprimer{\hfill$\diamondsuit$}
+
+% za stevilske mnozice uporabi naslednje simbole
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Q}{\mathbb Q}
+
+% ukaz za slovarsko geslo
+\newlength{\odstavek}
+\setlength{\odstavek}{\parindent}
+\newcommand{\geslo}[2]{\noindent\textbf{#1}\hspace*{3mm}\hangindent=\parindent\hangafter=1 #2}
+
+% naslednje ukaze ustrezno popravi
+\newcommand{\program}{Finančna matematika} % ime studijskega programa: Matematika/Finančna matematika
+\newcommand{\imeavtorja}{Blaž Povh, Luka Houška} % ime avtorja
+\newcommand{\imementorja}{doc. dr. Janoš Vidali} % akademski naziv in ime mentorja
+\newcommand{\imesomentorja}{prof. dr. Riste Škrekovski}
+\newcommand{\naslovdela}{Dominant Edge Metric Dimension}
+\newcommand{\letnica}{2024} %letnica 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\thispagestyle{empty}
+\noindent{\large
+UNIVERZA V LJUBLJANI\\[1mm]
+FAKULTETA ZA MATEMATIKO IN FIZIKO\\[5mm]
+\program\ }
+\vfill
+
+\begin{center}{\large
+\imeavtorja\\[2mm]
+{\bf \naslovdela}\\[10mm]
+Skupinski projekt\\[2mm]
+Poročilo\\[1cm]
+Mentorja: \imementorja, \\ \imesomentorja\\[2mm]}
+\end{center}
+\vfill
+
+\noindent{\large
+Ljubljana, januar \letnica}
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Navodilo naloge}
+    Implement an ILP for computing dominant edge metric dimension and answer the following questions.
+    \begin{enumerate}
+        \item Find trees on $n$ vertices which have minimum/maximum dominant edge metric dimension.
+        \item Find trees $T$ on $n$ vertices for which $Dedim(T) - edim(T)$ is maximum/minimum possible.
+        \item Find trees $T$ on $n$ vertices for which $Dedim(T)/ edim(T)$ is maximum/minimum possible.
+        \item Determine $Dedim(G)$ of a grid graph $Pk \Box Pt$.
+    \end{enumerate}
+
+    For small graphs, apply a systematic search; for larger ones, apply some stochastic search. Report your results.
+\bigskip
+
+\section{Načrt dela}
+    Najina projektna naloga se nanaša dominantne metrične dimenzije grafov. Projekt sva razdelila na več manjših delov.
+    Slednje sva si potem enakomerno razdelila. Natančnejši pregled najinega dela je opisan v nadaljevanju, tukaj pa je le 
+    kratek opis postopkov najinega dela.
+    Najprej sva napisala ustrezen CLP, ki izračuna dominantno metrično dimenzijo povezav za dani graf. V nadaljevanju sva 
+    za vsako podnalogo ustvarila nove funkcije, ki so za izbran graf izračunale v navodilih podane karakteristike in generirala
+    različne grafe, ter na njih testirala prej napisano kodo. 
+    V nadaljevanju sva napisala kodo, ki sva jo testirala tudi na večjih grafih. Temeljila pa je na metahevrističnem
+    algoritmu imenovanem \emph{local search}. 
+    Najin cilj oz. motivacija je bila ugotoviti, ali za grafe, ki ustrezajo določenim pogojem, veljajo kakšne posebne lastnosti.
+    Za majhne grafe, natančneje drevesa, sva se problema lotila s testiranjem na vseh različnih drevesih. Za večje grafe
+    pa sva kodo algoritem testirala le na naključnih grafih, saj je ta algoritem časovno zelo potraten. 
+    Za reševanje najine naloge sva uporabila okolje Sage (SageMath) znotraj spletne platforme CoCalc. V nadaljevanju bova razložila,
+    kako sva se lotila vsake podnaloge, ter dodala tudi kodo s komentarji, ki se nahaja na najinem GitHub repozitoriju.
+\bigskip
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+\section{Definicije}
+    Za lažje razumevanje najinega problema, si najprej poglejmo par pojmov ter definicij, ki sva jih uporabljala v sklopu najine
+    projekne naloge.
+    \begin{definicija}
+        V grafu $G$, množici vozlišč $S$ pravimo, da razrešuje povezave, če za vsak par povezav $e, f \in E(G)$ obstaja $s \in S$, tako da $d(s, e) \neq  d(s, f)$.
+    \end{definicija}
+
+    \begin{definicija}
+        Metrična dimenzija povezav na  povezanem grafu $G$, označili jo bomo z $edim(G)$, je moč najmanjše množice vozlišč $S\subseteq V(G)$, ki razlikuje vse pare povezav, t.j. za vsak par povezav $e, f \in E(G)$, obstaja vozlišče $s \in S$, tako da $d(s, e) \neq d(s, f )$. Tu upoštevamo, da je za povezavo $e=uv$, $d(s, e) = min\{d(s, u), d(s, v)\}$.
+    \end{definicija}
+        
+    \begin{definicija}
+        Množica vozlišč $C$ je \emph{vozliščno pokritje}, če ima vsaka povezava iz grafa $G$ vsaj eno krajišče v $C$.
+    \end{definicija}
+
+    \begin{definicija}
+        Dominantna množica, ki razrešuje povezave $S$ za graf $G$, je množica $S$, ki je hkrati vozliščno pokritje in razrešuje povezave. Dominantna metrična dimenzija povezav grafa $G$ je moč najmanjše množice $S$, ki razrešuje povezave. Označimo jo z $Dedim(G)$.
+    \end{definicija}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Majhni grafi}
+    Najin prvi korak je bil generiranje funkcije, ki s pomočjo ustreznega ter učinkovitega CLP izračuna dominantno metrično dimenzijo
+    povezav za dani graf, čemur krajše rečemo kar Dedim. Prvo sve definirala funkcijo \emph{razdalje\_povezave\_vozlisca(g)},
+    ki kot argument sprejme graf $g$ in vrne matriko razdalj med povezami in vozlišči, torej element v vrstici $i$ in stolpcu $j$ predstavlja razdaljo med povezavo $e_{i}$ in vozliščem $v_{j}$. 
+
+\bigskip
+\begin{small}
+    \begin{lstlisting}
+    def razdalje_povezave_vozlisca(g):
+        razdalje = distances_all_pairs(g)
+        razdalje_povezave = {}
+
+        for i,j in g.edges(labels=False):
+            razdalje_povezave[i,j] = {}
+            for v in g:
+                razdalje_povezave[i,j][v] = min(razdalje[i][v], razdalje[j][v])
+
+        return razdalje_povezave
+
+    \end{lstlisting}
+\end{small}
+
+\bigskip
+
+To funkcijo sva potem uporabila v funkciji \emph{CLP\_Dedim(g)}, ki kot argument sprejme graf $g$ in vrne vrednost $Dedim(g)$, ter
+vozlišča, ki sestavljajo rešitev.
+
+\bigskip
+
+\begin{small}
+    \begin{lstlisting}
+    import itertools  
+    def CLP_Dedim(g):
+
+        razdalje = razdalje_povezave_vozlisca(g)
+
+        p = MixedIntegerLinearProgram(maximization = False)
+        x = p.new_variable(binary = True)
+        p.set_objective( sum([x[v] for v in g]) )
+
+        for u,v in g.edges(labels = False):
+            p.add_constraint(x[u] + x[v] >= 1)
+
+
+        edges = list(g.edges(labels=False))
+        for (i,j),(u,v) in itertools.combinations(edges, 2):
+            vsota = sum(abs(razdalje[(i,j)][k] - razdalje[(u,v)][k])*x[k] for k in g.vertices())
+            p.add_constraint(vsota >= 1)
+
+
+        optimalna_resitev = p.solve()
+        vrednosti_za_S = p.get_values(x)
+
+        return optimalna_resitev, vrednosti_za_S
+
+    \end{lstlisting}
+\end{small}
+
+\bigskip
+
+\subsection{Prvi del naloge}
+Prvi del naloge je od naju zahteval, da najdeva drevesa $T$ na $n$ vozliščih, ki imajo minimalen/maksimalen $Dedim(T)$. V ta namen sva definirala funkciji \emph{drevesa\_min(i,j)} in \emph{drevesa\_max(i,j)}, 
+ki kot argumenta sprejmeta števili $i$ in $j$ in za vsako število vozlišč med $i$ in $j$ narišeta drevo $T$, ki ima najmanjšo oz. največjo $Dedim$ in pod njim izpišeta vrednost $Dedim$. Pomagala sva si z vgrajeno funkcijo \emph{TreeIterator}, ki je zelo uporabna za generiranje vseh dreves na $n$ vozliščih.
+
+\subsection{Drugi del naloge}
+Drugi del naloge je od naju zahteval, da najdeva drevesa $T$ na $n$ vozliščih, ki imajo minimalno/maksimalno možno razliko $Dedim(T) - edim(T)$. Tu je $edim(T)$ metrična dimenzija grafa na povezavah, torej opustimo pogoj, da more biti iskana množica vozliščno pokritje. V ta namen sva definirala funkciji \emph{drevesa\_min\_razlika(i,j)} in \emph{drevesa\_max\_razlika(i,j)}, 
+ki kot argumenta sprejmeta števili $i$ in $j$ in za vsako število vozlišč med $i$ in $j$ narišeta drevo $T$, ki ima najmanjšo oz. največjo razliko $Dedim(T) - edim(T)$ in pod njim izpišeta vrednost. Tudi tu sva si pomagala z vgrajeno funkcijo \emph{TreeIterator}.
+
+\subsection{Tretji del naloge}
+Tretji del naloge je od naju zahteval, da najdeva drevesa $T$ na $n$ vozliščih, ki imajo minimalen/maksimalen možen količnik $Dedim(T)/edim(T)$. V ta namen sva definirala funkciji \emph{drevesa\_min\_ulomek(i,j)} in \emph{drevesa\_max\_ulomek(i,j)}, 
+ki kot argumenta sprejmeta števili $i$ in $j$, $i,j \geq 3$ in za vsako število vozlišč med $i$ in $j$ narišeta drevo $T$, ki ima najmanjši oz. največji količnik $Dedim(T)/edim(T)$ in pod njim izpišeta vrednost. Tudi tu sva si pomagala z vgrajeno funkcijo \emph{TreeIterator}.
+
+\subsection{Četrti del naloge}
+Četrti del naloge je od naju zahteval, da izračunava $Dedim(g)$ za kartezične produkte dveh poti $P_{k}\square P_{t}$. V ta namen sva definirala funkcijo \emph{grid\_graph(i,j)}, 
+ki kot argument sprejme števili $i$ in $j$, $i \leq j$ in za vse kombinacije števila vozlišč med $i$ in $j$ nariše graf $P_{k}\square P_{t}$ in pod njim izpiše vrednost $Dedim(P_{k}\square P_{t})$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Ugotovitve}
+
+\subsection{Prvi del naloge}
+
+Hitro je bilo vidno, da so drevesa, na $n$ vozliščih, ki imajo maksimalen $Dedim(g)$ zvezde $S_{n}$, njihov $Dedim(S_{n})$ pa je $n-1$. Za drevesa z minimalnim $Dedim(T)$ nisva našla neke oblike grafa, ki bi se do potankosti ohranjala za vse $n$, sva pa ugotovila, da za 
+število vozlišč $n=3k, 3k+1,3k+2$ kjer je $k\geq 2$ velja, da je največja stopnja vozlišča v drevesu $\Delta (T) = k+1$, vozlišče s takšno stopnjo je natanko eno, drevo ima $k+1$ listov, vsa ostala vozlišča $v$, ki niso listi pa imajo $deg_{T}(v)=2$. To sva preverila za drevesa z $\left\lvert V(T)\right\rvert \leq 20$ in nimava razloga, da ne bi verjela, da to velja za vse $n$, bi se pa zavoljo matematične korektnosti to spodobilo dokazati, kar pa bi bilo(v primeru, da je sploh možno) za to projektno nalogo preobsežna naloga in niti ni naloga tega projekta. 
+
+\begin{table}[h]
+    \begin{center}
+      \begin{tabular}{l|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+        \textbf{število vozlišč} & \textbf{največja stopnja vozlišča} \\
+        \hline
+        6 & 3 \\
+        7 & 3 \\
+        8 & 3 \\
+        9 & 4 \\
+        10 & 4 \\
+        11 & 4 \\
+        12 & 5 \\
+        13 & 5 \\
+        14 & 5
+      \end{tabular}
+    \end{center}
+    \caption{Največja stopnja vozlišča v drevesu z min(Dedim(T))}
+    \label{tab:tabela1}
+\end{table}
+
+\bigskip
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.25\textwidth]{graf1.png}
+    \includegraphics[width=0.25\textwidth]{graf2.png}
+    \includegraphics[width=0.25\textwidth]{graf3.png}
+    \includegraphics[width=0.25\textwidth]{graf4.png}
+    \includegraphics[width=0.25\textwidth]{graf5.png}
+    \includegraphics[width=0.25\textwidth]{graf6.png}
+    \caption{Drevesa z $6 \leq \left\lvert V(T)\right\rvert \leq 11$ z minimalnim $Dedim(T)$}
+    \label{fig:slika1}
+\end{figure}
+
+\subsection{Drugi del naloge}
+Ponovno sva hitro ugotovila vzorec, da so drevesa  $T$ na $n$ vozliščih, ki imajo minimalen možen $Dedim(T) - edim(T)$ zvezde $S_{n}$ in da je $Dedim(T) - edim(T) = 1$. 
+Za drevesa z maksimalno razliko $Dedim(T) - edim(T)$ nisva našla oblike grafa, ki bi se do potankosti ohranjala za vse $n$, sva pa ugotovila, da za 
+število vozlišč $n=2k, 2k+1$ kjer je $k\geq 3$ velja, da je razlika enaka $k-1$. To sva preverila za drevesa $\left\lvert V(T)\right\rvert \leq 20$ in ponovno nimava razloga, da ne bi verjela, da to velja za vse $n$.
+
+\begin{table}[h]
+    \begin{center}
+      \begin{tabular}{l|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+        \textbf{število vozlišč} & \textbf{max(Dedim(T) - edim(T))} \\
+        \hline
+        6 & 2 \\
+        7 & 2 \\
+        8 & 3 \\
+        9 & 3 \\
+        10 & 4 \\
+        11 & 4 \\
+        12 & 5 \\
+        13 & 5 \\
+      \end{tabular}
+    \end{center}
+    \caption{Maksimalna razlika Dedim(T) - edim(T)}
+    \label{tab:tabela2}
+\end{table}
+
+\subsection{Tretji del naloge}
+Ugotovila sva, da so drevesa na $n$ vozliščih, ki imajo minimalen količnik \\
+$Dedim(T)/edim(T)$ zvezde $S_{n}$, količnik pa bo za $n\geq 3$ enak $\frac{n-1}{n-2} $. 
+
+\begin{table}[h]
+    \begin{center}
+      \begin{tabular}{l|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+        \textbf{število vozlišč} & \textbf{min(Dedim(T)/edim(T))} \\
+        \hline
+        3 & 2 \\
+        4 & 1.5 \\
+        5 & 1.3333 \\
+        6 & 1.25 \\
+        7 & 1.2 \\
+        8 & 1.6667 \\
+        9 & 1.1429 \\
+        10 & 1.125 \\
+      \end{tabular}
+    \end{center}
+    \caption{Minimalen količnik Dedim(T)/edim(T)}
+    \label{tab:tabela3}
+\end{table}
+
+Ugotovila sva, da drevesom na $n$ vozliščih z maksimalnim količnikom \\
+$Dedim(T)/edim(T)$ ustrezajo poti $P_{n}$, količnik pa je za $n\geq 4$ enak $\left\lfloor \frac{n}{2} \right\rfloor $.
+
+\begin{table}[h]
+    \begin{center}
+      \begin{tabular}{l|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+        \textbf{število vozlišč} & \textbf{min(Dedim(T)/edim(T))} \\
+        \hline
+        4 & 2 \\
+        5 & 2 \\
+        6 & 3 \\
+        7 & 3 \\
+        8 & 4 \\
+        9 & 4 \\
+        10 & 5 \\
+        11 & 5 \\
+      \end{tabular}
+    \end{center}
+    \caption{Maksimalen količnik Dedim(T)/edim(T)}
+    \label{tab:tabela4}
+\end{table}
+
+\subsection{Četrti del naloge}
+Ugotovila sva, da je $Dedim(P_{k}\square P_{t}) = \left\lfloor \frac{k\cdot t}{2} \right\rfloor$, če je $k+t \geq 5$. Odkrila sva tudi katera vozlišča nastopajo v iskani množici. 
+Če je $k\cdot t$ liho število, torej če sta $k,t$ lihi potem so izbrana vozlišča (pobarvana z rdečo) kot sledi:
+
+\bigskip
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.25\textwidth]{graf7.png}
+    \caption{Izbrana vozlišča, če je število vozlišč $P_{k}\square P_{t}$ liho.}
+    \label{fig:slika2}
+\end{figure}
+
+\bigskip
+Če je $k\cdot t$ sodo število, torej, če je vsaj eden izmed $k,t$ sod potem so izbrana vozlišča kot sledi.
+\bigskip
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.25\textwidth]{graf8.png}
+    \caption{Izbrana vozlišča, če je število vozlišč $P_{k}\square P_{t}$ sodo.}
+    \label{fig:slika2}
+\end{figure}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Local search}
+    Metodo local search sva dodala kot alternativo za velike grafe, saj najde približek rešitve dosti hitreje kot 
+    računanje prek CLP. Napisani algoritem deluje tako, da za podani graf najprej kreira poljubno dopustno rešitev, 
+    ki pa v večini primerov ni optimalna. Torej za začetno rešitev, si izbere poljubno množico vozlišč danega grafa,
+    za katero velja, da razrešuje povezave ter je vozliščno pokritje. Ko imamo to začetno rešitev se lotimo iskanja 
+    optimalne rešitve. Pogledamo vsako vozlišče v začetni rešitvi in pogledamo, če imamo dopustno rešitev tudi, če 
+    začetni rešitvi odstranimo to vozlišče. V primeru, da imamo optimalno rešitev, ko odstranimo vozlišče gremo potem 
+    naprej do drugih vozlišč in tako preverimo za vsako vozlišče. To ni sicer najbolj "tipičen" local search algoritem.
+    Primerjenje bi sicer bilo, da bi za začetno rešitev na neki okolici pogledali, ali dobimo boljšo rešitev, če poljubno
+    vozlišče iz začetne rešitve zamenjamo z kakšnim sosedom v grafu. Vendar za najin problem to ni bilo izvedljivo, saj
+    je bilo časovno preveč potratno. Ker je pa slabost najinega algoritma ta, da je končna rešitev močno odvisna od začetne
+    rešitve, sva še malce izboljšala algoritem. Torej, za dani graf ustvarimo $k$ začetnih rešitev in za vsako začetno
+    rešitev izvedemo potem local search. Za končno rešitev pa potem vzamemo najbolj optimalno od vseh rešitev. Torej
+    rešitev, kjer je množica vozlišč v rešitvi najmanjša. Ob testiranju algoritma na poljubnih grafih lahko ugotovimo, 
+    da algoritem ni pogosto različen od optimalne rešitve, je pa dosti hitrejši od CLP pri velikih grafih. 
+    Glede na preizuse sva ugotovila, da se za grafe do nekje 18 vozlišč splača uporabiti CLP, za večje grafe pa algoritem local search.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bigskip
+Za pomoč pri nalogi sva uporabila spodnjo literaturo.
+\begin{thebibliography}{99}
+    \bibitem{dominantedge}
+    M. Tavakoli, M. Korivand, A. Erfanian, G. Abrishami, E. T. Baskoro,
+    \emph{The dominant edge metric dimension of graphs},
+    Electronic Journal of Graph Theory and Applications 11(1) (2023) 197–208.  
+\end{thebibliography}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
