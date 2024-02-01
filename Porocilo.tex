@@ -221,7 +221,7 @@ Prvi del naloge je od naju zahteval, da najdeva drevesa $T$ na $n$ vozliščih, 
 ki kot argumenta sprejmeta števili $i$ in $j$ in za vsako število vozlišč med $i$ in $j$ narišeta drevo $T$, ki ima najmanjšo oz. največjo $Dedim$ in pod njim izpišeta vrednost $Dedim$. Pomagala sva si z vgrajeno funkcijo \emph{TreeIterator}, ki je zelo uporabna za generiranje vseh dreves na $n$ vozliščih.
 
 \subsection{Drugi del naloge}
-Drugi del naloge je od naju zahteval, da najdeva drevesa $T$ na $n$ vozliščih, ki imajo minimalno/maksimalno možno razliko $Dedim(T) - edim(T)$. Tu je $edim(T)$ metrična dimenzija grafa na povezavah, torej opustimo pogoj, da more biti iskana množica vozliščno pokritje. V ta namen sva definirala funkciji \emph{drevesa\_min\_razlika(i,j)} in \emph{drevesa\_max\_razlika(i,j)}, 
+Drugi del naloge je od naju zahteval, da najdeva drevesa $T$ na $n$ vozliščih, ki imajo minimalno/maksimalno možno razliko $Dedim(T) - edim(T)$. Tu je $edim(T)$ metrična dimenzija grafa na povezavah, torej opustimo pogoj, da more biti iskana množica vozliščno pokritje. Najina prva naloga je bila, da definirava funkcijo \emph{CLP\_edim(g)}, ki nam vrne metrično dimenzijo grafa. Nato sva definirala funkciji \emph{drevesa\_min\_razlika(i,j)} in \emph{drevesa\_max\_razlika(i,j)}, 
 ki kot argumenta sprejmeta števili $i$ in $j$ in za vsako število vozlišč med $i$ in $j$ narišeta drevo $T$, ki ima najmanjšo oz. največjo razliko $Dedim(T) - edim(T)$ in pod njim izpišeta vrednost. Tudi tu sva si pomagala z vgrajeno funkcijo \emph{TreeIterator}.
 
 \subsection{Tretji del naloge}
@@ -387,6 +387,7 @@ Ugotovila sva, da je $Dedim(P_{k}\square P_{t}) = \left\lfloor \frac{k\cdot t}{2
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bigskip
+Vse funkcije, ki so omenjene v poročilu so napisane na Github-u v datoteki \emph{clp.py}.
 Za pomoč pri nalogi sva uporabila spodnjo literaturo.
 \begin{thebibliography}{99}
     \bibitem{dominantedge}
