@@ -345,7 +345,7 @@ $Dedim(T)/edim(T)$ ustrezajo poti $P_{n}$, količnik pa je za $n\geq 4$ enak $\l
 
 \subsection{Četrti del naloge}
 Ugotovila sva, da je $Dedim(P_{k}\square P_{t}) = \left\lfloor \frac{k\cdot t}{2} \right\rfloor$, če je $k+t \geq 5$. Odkrila sva tudi katera vozlišča nastopajo v iskani množici. 
-Če je $k\cdot t$ liho število, torej če sta $k,t$ lihi potem so izbrana vozlišča (pobarvana z rdečo) kot sledi:
+Če je $k\cdot t$ liho število, torej če sta $k,t$ lihi potem so izbrana vozlišča (pobarvana z rdečo) kot sledi: v prvi vrstici izberemo drugo vozlišče po vrsti in potem vsakega drugega v tej vrstici, v naslednji vrstici začnemo s prvim vozliščem in potem izberemo vsakega drugega, v tretji vrstici ponovno začnemo z drugim vozliščem po vrsti itd.
 
 \bigskip
 \begin{figure}[h]
@@ -356,13 +356,13 @@ Ugotovila sva, da je $Dedim(P_{k}\square P_{t}) = \left\lfloor \frac{k\cdot t}{2
 \end{figure}
 
 \bigskip
-Če je $k\cdot t$ sodo število, torej, če je vsaj eden izmed $k,t$ sod potem so izbrana vozlišča kot sledi.
+Če je $k\cdot t$ sodo število, torej, če je vsaj eden izmed $k,t$ sod potem so izbrana vozlišča kot sledi: v prvi vstici izberemo prvo vozlišče po vrsti in potem vsakega drugega v tej vrstici, v drugi vrstici izberemo drugo vozlišče po vrsti in potem vsekga drugega, v tretji vrstici spet začnemo s prvim vozliščem itd.
 \bigskip
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.25\textwidth]{graf8.png}
     \caption{Izbrana vozlišča, če je število vozlišč $P_{k}\square P_{t}$ sodo.}
-    \label{fig:slika2}
+    \label{fig:slika3}
 \end{figure}
 
 
@@ -376,7 +376,7 @@ Ugotovila sva, da je $Dedim(P_{k}\square P_{t}) = \left\lfloor \frac{k\cdot t}{2
     optimalne rešitve. Pogledamo vsako vozlišče v začetni rešitvi in pogledamo, če imamo dopustno rešitev tudi, če 
     začetni rešitvi odstranimo to vozlišče. V primeru, da imamo optimalno rešitev, ko odstranimo vozlišče gremo potem 
     naprej do drugih vozlišč in tako preverimo za vsako vozlišče. To ni sicer najbolj "tipičen" local search algoritem.
-    Primerjenje bi sicer bilo, da bi za začetno rešitev na neki okolici pogledali, ali dobimo boljšo rešitev, če poljubno
+    Primerneje bi sicer bilo, da bi za začetno rešitev na neki okolici pogledali, ali dobimo boljšo rešitev, če poljubno
     vozlišče iz začetne rešitve zamenjamo z kakšnim sosedom v grafu. Vendar za najin problem to ni bilo izvedljivo, saj
     je bilo časovno preveč potratno. Ker je pa slabost najinega algoritma ta, da je končna rešitev močno odvisna od začetne
     rešitve, sva še malce izboljšala algoritem. Torej, za dani graf ustvarimo $k$ začetnih rešitev in za vsako začetno
