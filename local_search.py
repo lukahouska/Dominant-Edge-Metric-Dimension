@@ -42,9 +42,9 @@ def initial_solution_dedim(g):
     if len(vertices) == Integer(2):
         return {vertices[0], vertices[1]}
     else:
-        zacetna_resitev = set(random.sample(vertices, len(vertices) - 2 ))
+        zacetna_resitev = set(random.sample(vertices, len(vertices) - 1 ))
         while is_dominant_edge_resolving_set(g, zacetna_resitev) is False:
-            zacetna_resitev = set(random.sample(vertices, len(vertices) - 2 ))
+            zacetna_resitev = set(random.sample(vertices, len(vertices) - 1 ))
         return zacetna_resitev
     
 def initial_solution_edim(g):
